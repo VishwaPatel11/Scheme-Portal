@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
-hatttttt
 
 public class AmrutamForm implements ActionListener {
     JFrame frame = new JFrame();
