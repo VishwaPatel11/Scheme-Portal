@@ -16,9 +16,15 @@ public class LoginPage implements ActionListener {
 
         JLabel message = new JLabel();
         HashMap<String, String> logininfo = new HashMap<String, String>();
-        LoginPage(HashMap<String,String> _logininfo_)
-        {
+//        String mainUsername, mainPassword;
+        LoginPage() {
+                System.out.println("LoginPage");
+        }
+
+        void logicPageClass(HashMap _logininfo_){
         logininfo = _logininfo_;
+//                mainUsername = username;
+//                mainPassword = password;
 
         userIDLabel.setBounds(50,100,75,25);
         userpasswordLabel.setBounds(50,150,75,25);
@@ -53,16 +59,17 @@ public class LoginPage implements ActionListener {
         frame.setSize(420,420);
         frame.setLayout(null);
         frame.setVisible(true);
-
     }
-
+        String pass;
     public void actionPerformed(ActionEvent e) {
             // to perform as per the frames buttons, on click.
 
             if(e.getSource() == signUp)
             {
                     frame.dispose();
+                    // here the connection for DataBase will be accessed. 
                     SignUp sign = new SignUp();
+                    sign.signUpClass();
             }
 
             if(e.getSource() == resetButton)
@@ -74,26 +81,36 @@ public class LoginPage implements ActionListener {
             {
                     String id = userIDField.getText();
                     String password = String.valueOf(userPasswordField.getPassword());
-                    if(logininfo.containsKey(id))
+                    pass = String.valueOf(userPasswordField.getPassword());
+                    if(userIDField.getText().equals("") && pass.equals(""))
                     {
-                            if(logininfo.get(id).equals(password))
+                            Toolkit.getDefaultToolkit().beep();
+                            JOptionPane.showMessageDialog(null, "Please, Enter Username & Password");
+                    }
+                    else{
+                            if(logininfo.containsKey(id))
                             {
-                                    message.setForeground(Color.green);
-                                    message.setText("Login Successfully");
-                                    frame.dispose();
-                                    CardSelectionPage cardSelectionPage = new CardSelectionPage();
-                                    cardSelectionPage.selectcard();
+                                    if(logininfo.containsValue(password))
+                                    {
+//                                    message.setForeground(Color.green);
+//                                    message.setText("Login Successfully");
+                                            frame.dispose();
+                                            Toolkit.getDefaultToolkit().beep();
+                                            JOptionPane.showMessageDialog(null, "Log-In Successfully");
+                                            CardSelectionPage cardSelectionPage = new CardSelectionPage();
+                                            cardSelectionPage.selectcard();
+                                    }
+                                    else
+                                    {
+                                            Toolkit.getDefaultToolkit().beep();
+                                            JOptionPane.showMessageDialog(null, "Invalid Username & Password!");
+                                    }
                             }
                             else
                             {
-                                    message.setForeground(Color.red);
-                                    message.setText("Wrong password");
+                                    Toolkit.getDefaultToolkit().beep();
+                                    JOptionPane.showMessageDialog(null, "Invalid Username & Password!");
                             }
-                    }
-                    else
-                    {
-                            message.setForeground(Color.red);
-                            message.setText("Wrong Username");
                     }
             }
     }
