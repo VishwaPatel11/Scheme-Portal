@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 
 public class AmrutamCard implements ActionListener {
 
@@ -12,6 +13,7 @@ public class AmrutamCard implements ActionListener {
     JButton apply = new JButton("Apply");
 
     JButton scheme = new JButton("Scheme");
+    JButton pdfButton = new JButton("Document");
 
     public void amrutam() {
         apply.setBounds(150, 120, 100, 50);
@@ -39,20 +41,54 @@ public class AmrutamCard implements ActionListener {
     public void actionPerformed(ActionEvent beta) {
         // actions for another page, information, submit, scheme
         if (beta.getSource() == scheme) {
-            frame.dispose();
+//            frame.dispose();
             JFrame frame = new JFrame();
-            JLabel label = new JLabel();
+
+            JLabel title = new JLabel("Amrutam-Card Scheme");
+            title.setBounds(255, 5, 500, 40);
+            title.setFont(new Font(null, Font.ITALIC, 25));
 
 
+            JLabel line1 = new JLabel("1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, in iure dolorem ex eligendi cumque.");
+            JLabel line2 = new JLabel("2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, in iure dolorem ex eligendi cumque.");
+            JLabel line3 = new JLabel("3. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est nulla tenetur earum delectus recusandae ");
+            JLabel line4 = new JLabel("4. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est nulla tenetur earum delectus recusandae iras");
+            JLabel line5 = new JLabel("5. Under the Amrutam Card Scheme, eligible individuals are provided with a health insurance cover of up to ");
+            JLabel line6 = new JLabel("Rs. 2 lakh per year for critical illnesses such as cancer, heart disease, kidney disease, and neurological.");
 
+            line1.setBounds(5, 55, 750, 15);
+            line1.setFont(new Font(null, Font.ITALIC, 15));
+
+            line2.setBounds(5, 75, 750, 15);
+            line2.setFont(new Font(null, Font.ITALIC, 15));
+
+            line3.setBounds(5, 95, 750, 15);
+            line3.setFont(new Font(null, Font.ITALIC, 15));
+
+            line4.setBounds(5, 115, 750, 15);
+            line4.setFont(new Font(null, Font.ITALIC, 15));
+
+            line5.setBounds(5, 135, 750, 15);
+            line5.setFont(new Font(null, Font.ITALIC, 15));
+
+            line6.setBounds(5, 155, 750, 15);
+            line6.setFont(new Font(null, Font.ITALIC, 15));
+
+
+            frame.add(title);
+            frame.add(line1);
+            frame.add(line2);
+            frame.add(line3);
+            frame.add(line4);
+            frame.add(line5);
+            frame.add(line6);
+            frame.setSize(770, 400);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(1000, 400);
-            frame.setLayout(null);
             frame.setVisible(true);
         }
 
         if (beta.getSource() == info) {
-            frame.dispose();
+//            frame.dispose();
             JFrame frame = new JFrame();
             JLabel title = new JLabel("Amrutam-Card Details");
             title.setBounds(255, 5, 500, 40);
@@ -64,14 +100,23 @@ public class AmrutamCard implements ActionListener {
 
             line1.setBounds(5, 55, 750, 15);
             line1.setFont(new Font(null, Font.ITALIC, 15));
+
             line2.setBounds(5, 75, 750, 15);
             line2.setFont(new Font(null, Font.ITALIC, 15));
+
             line3.setBounds(5, 95, 750, 15);
             line3.setFont(new Font(null, Font.ITALIC, 15));
+
+            pdfButton.setBounds(340, 300, 100, 25);
+            pdfButton.setFocusable(false);
+            pdfButton.addActionListener(this);
+
+            frame.add(pdfButton);
             frame.add(title);
             frame.add(line3);
             frame.add(line2);
             frame.add(line1);
+            frame.add(line4);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(770, 400);
             frame.setLayout(null);
@@ -85,5 +130,28 @@ public class AmrutamCard implements ActionListener {
             AmrutamForm form = new AmrutamForm();
             form.formAmrutam();
         }
+        if(beta.getSource() == pdfButton){
+
+            String filePath = "src/docs.pdf";
+
+            // Create a File object for the PDF file
+            File file = new File(filePath);
+
+            Desktop hello = Desktop.getDesktop();
+            if(file.exists()){
+                try {
+                    hello.open(file);
+                } catch (IOException e) {
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "Document Error!!");
+                }
+            }
+            else
+            {
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(null, "Document Error!!");
+            }
+        }
     }
+
 }
